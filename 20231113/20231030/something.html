@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teatro v2</title>
+    <script language="javascript">
+
+        var d, e, f;
+
+        d = new array(5);
+
+        for(e = 0; e <= d.lenght - 1; e++)
+        {
+            d[e] = new array(10);
+        }
+
+            function selecao(g , h, i)
+            {
+                //Script: função da seleção de assentos;
+
+                alert(i);
+
+                if(d[g] [h] == true)
+                {
+                    d[g] [h] = false;
+                    getElementById("assentoNum" + i).setAttribute("src" , "assento.png");
+                }
+                else
+                {
+                    d[g] [h] = true;
+                    getElementById("assentoNum" + i).setAttribute("src" , "assentoOcupado.png");
+                }
+            }
+
+    </script>
+</head>
+<body>
+    <script language="javascript">
+
+        //Script: formulário da seleção de assentos;
+        
+        var a, b, c = 1;
+
+        for(a = 0; a < 5; a++)
+        {
+            for(b = 0; b < 10; b++)
+            {
+                document.write("<img width='50px' height='50px' src='assento.png' id='assentoNum"+ c +"' onclick='selecao("+ a , b , c +")'>");
+                c++;
+            }
+            document.write("<br>");
+        }
+
+    </script>
+</body>
+</html>

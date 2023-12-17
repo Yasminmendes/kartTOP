@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Theatre Seat Selection</title>
+    <style>
+        .seat {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .selected {
+            background-color: #66bb6a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Theatre Seat Selection</h1>
+    <div id="seat-map"></div>
+    <div>
+        <p>Selected Seats: <span id="selected-seats"></span></p>
+        <p>Total Price: $<span id="total-price">0</span></p>
+        <button id="book-button">Book Selected Seats</button>
+    </div>
+    <script>
+        const numRows = 5; // Number of rows
+        const numSeatsPerRow = 6; // Number of seats per row
+        const seatMap = document.getElementById("seat-map");
+        const selectedSeats = [];
+        let totalPrice = 0;
+
+        // Initialize the 2D array to represent seat status
+        const seatStatus = Array.from({ length: numRows }, () =>
+            Array(numSeatsPerRow).fill(false)
+        );
+
+        // Create and append seats to the seatMap
+        for (let row = 1; row <= numRows; row++) {
+            for (let seatNumber = 1; seatNumber <= numSeatsPerRow; seatNumber++) {
+                const seat = document.createElement("div");
+                seat.className = "seat";
+                seat.textContent = `${row}-${seatNumber}`;
+                seat.addEventListener("click", () => toggleSeat(row - 1, seatNumber - 1, seat));
+                seatMap.appendChild(seat);
+            }
+        }
+
+        function toggleSeat(row, seatNumber, seat) {
+            if (seatStatus[row][seatNumber]) {
+                // Seat is already selected, unselect it
+                seat.classList.remove("selected");
+                seatStatus[row][seatNumber] = false;
+                const index = selectedSeats.indexOf(`${row + 1}-${seatNumber + 1}`);
+                selectedSeats.splice(index, 1);
+                totalPrice -= 10; // Adjust the price as needed
+            } else {
+                // Seat is not selected, select it
+                seat.classList.add("selected");
+                seatStatus[row][seatNumber] = true;
+                selectedSeats.push(`${row + 1}-${seatNumber + 1}`);
+                totalPrice += 10; // Adjust the price as needed
+            }
+
+            // Update the selected seats and total price display
+            document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
+            document.getElementById("total-price").textContent = totalPrice;
+        }
+
+        document.getElementById("book-button").addEventListener("click", () => {
+            // Here, you can implement the booking logic (e.g., sending selectedSeats to a server).
+            alert(`Booked seats: ${selectedSeats.join(", ")}\nTotal Price: $${totalPrice}`);
+        });
+    </script>
+</body>
+</html>
